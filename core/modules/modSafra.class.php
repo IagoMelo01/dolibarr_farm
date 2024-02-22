@@ -2,7 +2,7 @@
 /* Copyright (C) 2004-2018  Laurent Destailleur     <eldy@users.sourceforge.net>
  * Copyright (C) 2018-2019  Nicolas ZABOURI         <info@inovea-conseil.com>
  * Copyright (C) 2019-2020  Frédéric France         <frederic.france@netlogic.fr>
- * Copyright (C) 2024-2024  Iago Melo				<iago.melo@farmevo.com.br>
+ * Copyright (C) 2024 Iago Oliveira Melo   			<iagomello160@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,8 @@ class modSafra extends DolibarrModules
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
 		// To use a supported fa-xxx css style of font awesome, use this->picto='xxx'
-		$this->picto = 'safra.png@safra';
+		$this->picto = 'fa-seeding';
+		// $this->picto = 'safra.png@safra';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
@@ -355,7 +356,7 @@ class modSafra extends DolibarrModules
             'fk_menu'=>'fk_mainmenu=safra',
             // This is a Left menu entry
             'type'=>'left',
-            'titre'=>'Talhões',
+            'titre'=>'Lista Talhões',
             'mainmenu'=>'safra',
             'leftmenu'=>'safra_talhao',
             'url'=>'/safra/talhao_list.php',
@@ -397,10 +398,10 @@ class modSafra extends DolibarrModules
             'fk_menu'=>'fk_mainmenu=safra',
             // This is a Left menu entry
             'type'=>'left',
-            'titre'=>'Planos de Plantio',
+            'titre'=>'Lista Recomendações de adubação',
             'mainmenu'=>'safra',
-            'leftmenu'=>'safra_plano_plantio',
-            'url'=>'/safra/plano_plantio_list.php',
+            'leftmenu'=>'safra_recomendacaoadubo',
+            'url'=>'/safra/recomendacaoadubo_list.php',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'safra@safra',
             'position'=>1100+$r,
@@ -415,13 +416,13 @@ class modSafra extends DolibarrModules
 
 		$this->menu[$r++]=array(
             // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-            'fk_menu'=>'fk_mainmenu=safra,fk_leftmenu=safra_plano_plantio',
+            'fk_menu'=>'fk_mainmenu=safra,fk_leftmenu=safra_recomendacaoadubo',
             // This is a Left menu entry
             'type'=>'left',
-            'titre'=>'Novo Planejamento',
+            'titre'=>'Nova recomendação de adubação',
             'mainmenu'=>'safra',
-            'leftmenu'=>'safra_plano_plantio',
-            'url'=>'/safra/plano_plantio_card.php?action=create',
+            'leftmenu'=>'safra_recomendacaoadubo',
+            'url'=>'/safra/recomendacaoadubo_card.php?action=create',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'safra@safra',
             'position'=>1100+$r,

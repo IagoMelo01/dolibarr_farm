@@ -17,8 +17,10 @@
 CREATE TABLE llx_safra_talhao(
 	-- BEGIN MODULEBUILDER FIELDS
 	rowid integer AUTO_INCREMENT PRIMARY KEY NOT NULL, 
-	ref varchar(128) DEFAULT '(T-)' NOT NULL, 
+	ref varchar(128) DEFAULT '(PROV)' NOT NULL, 
 	label varchar(255), 
+	amount double DEFAULT NULL, 
+	qty real, 
 	fk_soc integer, 
 	fk_project integer, 
 	description text, 
@@ -32,6 +34,6 @@ CREATE TABLE llx_safra_talhao(
 	import_key varchar(14), 
 	model_pdf varchar(255), 
 	status integer NOT NULL, 
-	area double(6,2)
+	textura_solo integer NOT NULL
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;
