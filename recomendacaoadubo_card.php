@@ -97,15 +97,6 @@ $dol_openinpopup = GETPOST('dol_openinpopup', 'aZ09');
 
 // Initialize technical objects
 $object = new RecomendacaoAdubo($db);
-include_once "./class/tabela_compatiblidade.php";
-$object->tab_compatibilidade = $tab_comp;
-// echo '<pre>';
-
-// print_r($object->get_cultivares());
-// print_r($object->api_rec_adubo(6));
-// echo '<br>';
-
-// echo '</pre>';
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->safra->dir_output.'/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array('recomendacaoadubocard', 'globalcard')); // Note that conf->hooks_modules contains array
@@ -431,7 +422,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 
 	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
-	$object->tab_compatibilidade = $tab_comp;
+
 
 	print '<div class="fichecenter">';
 	print '<div class="fichehalfleft">';
@@ -446,7 +437,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Other attributes. Fields from hook formObjectOptions and Extrafields.
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_view.tpl.php';
-	
+
 	print '</table>';
 	print '</div>';
 	print '</div>';
@@ -463,8 +454,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if (!empty($object->table_element_line)) {
 		// Show object lines
 		$result = $object->getLinesArray();
-		$object->tab_compatibilidade = $tab_comp;
-		
+
 		print '	<form name="addproduct" id="addproduct" action="'.$_SERVER["PHP_SELF"].'?id='.$object->id.(($action != 'editline') ? '' : '#line_'.GETPOST('lineid', 'int')).'" method="POST">
 		<input type="hidden" name="token" value="' . newToken().'">
 		<input type="hidden" name="action" value="' . (($action != 'editline') ? 'addline' : 'updateline').'">
@@ -472,11 +462,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="page_y" value="">
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
-		
+
 		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
-		
+
 		print '<div class="div-table-responsive-no-min">';
 		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline')) {
 			print '<table id="tablelines" class="noborder noshadow" width="100%">';
@@ -580,7 +570,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<div class="fichecenter"><div class="fichehalfleft">';
 		print '<a name="builddoc"></a>'; // ancre
 
-		$includedocgeneration = 0;
+		$includedocgeneration = 1;
 
 		// Documents
 		if ($includedocgeneration) {

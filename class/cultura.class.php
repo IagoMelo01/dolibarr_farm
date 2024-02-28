@@ -61,7 +61,7 @@ class Cultura extends CommonObject
 	/**
 	 * @var string String with name of icon for cultura. Must be a 'fa-xxx' fontawesome code (or 'fa-xxx_fa_color_size') or 'cultura@safra' if picto is file 'img/object_cultura.png'.
 	 */
-	public $picto = 'fa-file';
+	public $picto = 'fa-leaf';
 
 
 	const STATUS_DRAFT = 0;

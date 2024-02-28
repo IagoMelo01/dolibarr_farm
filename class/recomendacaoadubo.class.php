@@ -119,7 +119,7 @@ class RecomendacaoAdubo extends CommonObject
 	 */
 	public $fields=array(
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>0, 'noteditable'=>'1', 'index'=>1, 'css'=>'left', 'comment'=>"Id"),
-		'ref' => array('type'=>'varchar(128)', 'label'=>'Ref', 'enabled'=>'1', 'position'=>20, 'notnull'=>1, 'visible'=>1, 'index'=>1, 'searchall'=>1, 'showoncombobox'=>'1', 'validate'=>'1', 'comment'=>"Reference of object"),
+		'ref' => array('type'=>'varchar(128)', 'label'=>'Ref', 'enabled'=>'1', 'position'=>20, 'notnull'=>1, 'visible'=>4, 'index'=>1, 'searchall'=>1, 'validate'=>'1', 'comment'=>"Reference of object"),
 		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>'1', 'position'=>30, 'notnull'=>0, 'visible'=>1, 'alwayseditable'=>'1', 'searchall'=>1, 'css'=>'minwidth300', 'cssview'=>'wordbreak', 'help'=>"Help text", 'showoncombobox'=>'2', 'validate'=>'1',),
 		'qty' => array('type'=>'real', 'label'=>'Qty', 'enabled'=>'1', 'position'=>45, 'notnull'=>0, 'visible'=>0, 'isameasure'=>'1', 'css'=>'maxwidth75imp', 'help'=>"Help text for quantity", 'validate'=>'1',),
 		'fk_soc' => array('type'=>'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label'=>'ThirdParty', 'enabled'=>'1', 'position'=>50, 'notnull'=>-1, 'visible'=>0, 'index'=>1, 'css'=>'maxwidth500 widthcentpercentminusxx', 'csslist'=>'tdoverflowmax150', 'help'=>"OrganizationEventLinkToThirdParty", 'validate'=>'1',),
@@ -147,7 +147,7 @@ class RecomendacaoAdubo extends CommonObject
 		'fosforo' => array('type'=>'integer', 'label'=>'Fósforo - P2O5 (mg/dm3) Domínio: 0 a 50', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>-1,),
 		'prnt_calcario' => array('type'=>'integer', 'label'=>'(PRNT) Poder relativo de neutralização total do calcário (%) Domínio: 0 a 100', 'enabled'=>'1', 'position'=>56, 'notnull'=>0, 'visible'=>-1,),
 		'fk_cultura' => array('type'=>'integer:Cultura:safra/class/cultura.class.php', 'label'=>'Cultura', 'enabled'=>'1', 'position'=>49, 'notnull'=>1, 'visible'=>-1,),
-		'dose_calc_rec' => array('type'=>'double(6,2)', 'label'=>'Dose de calcário recomendada (ton/ha)', 'enabled'=>'1', 'position'=>57, 'notnull'=>0, 'visible'=>5, 'cssview'=>'colorred',),
+		'dose_calc_rec' => array('type'=>'double(6,2)', 'label'=>'Dose de calcário recomendada (ton/ha)', 'enabled'=>'1', 'position'=>57, 'notnull'=>0, 'visible'=>5, 'cssview'=>'color-green',),
 		'tab_compatibilidade' => array('type'=>'html', 'label'=>'Compatibilidade entre adubos simples', 'enabled'=>'1', 'position'=>60, 'notnull'=>0, 'visible'=>5,),
 	);
 	public $rowid;
@@ -402,7 +402,9 @@ class RecomendacaoAdubo extends CommonObject
 			}
 			$html .= "<br> <h4> Observação de Adubação <h4>" . $data['observacoesAdubacao'];
 
-			$sql = "UPDATE ".$this->db->prefix().$this->table_element." SET `arquivo_json`='".$caminho_arquivo."', `description`='".$html."', `dose_calc_rec`='".$dose."'  WHERE rowid = $id_obj";
+			include "./tabela_compatiblidade.php";
+
+			$sql = "UPDATE ".$this->db->prefix().$this->table_element." SET `arquivo_json`='".$caminho_arquivo."', `description`='".$html."', `dose_calc_rec`='".$dose."', `tab_compatibilidade`='".$tab_compatibilidade."'  WHERE rowid = $id_obj";
 			$this->db->query($sql);
 		} else {
 			echo "Erro ao salvar o arquivo.";
@@ -410,6 +412,12 @@ class RecomendacaoAdubo extends CommonObject
 		}
 		
 		return $response;
+	}
+
+	private function set_ref(int $obj_id){
+		$new_ref = "REC_ADUBO - ". date("d-m-Y", time())." - ".$obj_id;
+		$sql = "UPDATE ".$this->db->prefix().$this->table_element." SET `ref`='".$new_ref."' WHERE rowid = $obj_id";
+		$this->db->query($sql);
 	}
 
 	/**
@@ -425,7 +433,10 @@ class RecomendacaoAdubo extends CommonObject
 
 
 		//$resultvalidate = $this->validate($user, $notrigger);
+
+
 		if($resultcreate != 0){
+			$this->set_ref($resultcreate);
 			$this->api_rec_adubo($resultcreate);
 		}
 		

@@ -104,7 +104,7 @@ $formfile = new FormFile($db);
 
 llxHeader("", $langs->trans("SafraArea"));
 
-print load_fiche_titre($langs->trans("SafraArea"), '', 'safra.png@safra');
+print load_fiche_titre($langs->trans("SafraArea"), '', 'fa-seedling');
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 

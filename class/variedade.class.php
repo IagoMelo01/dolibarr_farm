@@ -61,7 +61,7 @@ class Variedade extends CommonObject
 	/**
 	 * @var string String with name of icon for variedade. Must be a 'fa-xxx' fontawesome code (or 'fa-xxx_fa_color_size') or 'variedade@safra' if picto is file 'img/object_variedade.png'.
 	 */
-	public $picto = 'fa-file';
+	public $picto = 'fa-pagelines';
 
 
 	const STATUS_DRAFT = 0;

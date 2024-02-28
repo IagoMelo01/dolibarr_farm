@@ -72,7 +72,7 @@ class modSafra extends DolibarrModules
 		$this->editor_url = 'www.farmevo.com.br';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
-		$this->version = 'development';
+		$this->version = '0.6';
 		// Url to the file with your last numberversion of this module
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
 
@@ -83,7 +83,7 @@ class modSafra extends DolibarrModules
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
 		// To use a supported fa-xxx css style of font awesome, use this->picto='xxx'
-		$this->picto = 'fa-seeding';
+		$this->picto = 'fontawesome_seedling_fas';
 		// $this->picto = 'safra.png@safra';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
@@ -108,7 +108,7 @@ class modSafra extends DolibarrModules
 			'theme' => 0,
 			// Set this to relative path of css file if module has its own css file
 			'css' => array(
-				//    '/safra/css/safra.css.php',
+				'/safra/css/safra.css.php',
 			),
 			// Set this to relative path of js file if module must load a js on all pages
 			'js' => array(
@@ -292,8 +292,8 @@ class modSafra extends DolibarrModules
 		$this->menu[$r++] = array(
 			'fk_menu'=>'', // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type'=>'top', // This is a Top menu entry
-			'titre'=>'ModuleSafraName',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
+			'titre'=>'Safra',
+			'prefix' => img_picto('', $this->picto, 'paddingright pictofixedwidth valignmiddle "'),
 			'mainmenu'=>'safra',
 			'leftmenu'=>'',
 			'url'=>'/safra/safraindex.php',
@@ -356,7 +356,7 @@ class modSafra extends DolibarrModules
             'fk_menu'=>'fk_mainmenu=safra',
             // This is a Left menu entry
             'type'=>'left',
-            'titre'=>'Lista Talhões',
+            'titre'=>'<i class="fas fa-vector-square"></i> Lista Talhões',
             'mainmenu'=>'safra',
             'leftmenu'=>'safra_talhao',
             'url'=>'/safra/talhao_list.php',
